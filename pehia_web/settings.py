@@ -11,8 +11,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,6 +19,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'oppurtunities',
+    'events',
+    'campus',
+    'blog',
+
 ]
 
 MIDDLEWARE = [
@@ -33,7 +36,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pehia.urls'
+ROOT_URLCONF = 'pehia_web.urls'
 
 TEMPLATES = [
     {
@@ -51,7 +54,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pehia.wsgi.application'
+WSGI_APPLICATION = 'pehia_web.wsgi.application'
 
 DATABASES = {
     'default': {
