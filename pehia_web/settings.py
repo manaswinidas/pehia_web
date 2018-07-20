@@ -1,3 +1,4 @@
+from dotenv import load_dotenv, find_dotenv
 import os
 
 
@@ -12,6 +13,7 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -23,6 +25,8 @@ INSTALLED_APPS = [
     'events',
     'campus',
     'blog',
+    'pehia_web',
+    'loginauth',
 
 ]
 
@@ -32,6 +36,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -78,7 +83,23 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+SOCIAL_AUTH_TRAILING_SLASH = False                   
+SOCIAL_AUTH_AUTH0_DOMAIN = 'YOUR_AUTH_DOMAIN'
+SOCIAL_AUTH_AUTH0_KEY = 'YOUR_CLIENT_ID'
+SOCIAL_AUTH_AUTH0_SECRET = 'YOUR_CLIENT_SECRET'
 
+SOCIAL_AUTH_AUTH0_SCOPE = [
+    'openid',
+    'profile'
+]
+AUTHENTICATION_BACKENDS = {
+    'loginauth.auth0backend.Auth0',
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+}
+LOGIN_URL = "/login/login/auth0"
+LOGIN_REDIRECT_URL = "/login/dashboard"
+LOGOUT_REDIRECT_URL = "/login"
 
 LANGUAGE_CODE = 'en-us'
 
@@ -91,6 +112,10 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "project_static"),
